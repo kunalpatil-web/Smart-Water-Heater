@@ -1,0 +1,14 @@
+from machine import Pin
+import time
+
+# Set up the relay pin (replace 2 with the correct GPIO pin you're using)
+relay = Pin(13, Pin.OUT)
+
+while True:
+    relay.on()     # Turn relay ON (this might turn the light ON or OFF depending on your relay)
+    print("Light ON")
+    time.sleep(5)  # Wait for 5 seconds
+
+    relay.off()    # Turn relay OFF
+    print("Light OFF")
+    time.sleep(3)  # Wait for 3 seconds
