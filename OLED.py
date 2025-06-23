@@ -2,7 +2,7 @@ from machine import Pin, I2C
 from ssd1306 import SSD1306_I2C
 
 
-i2c = I2C(0, scl=Pin(19), sda=Pin(18))  # For ESP32
+i2c = I2C(0, scl=Pin(19), sda=Pin(18)) 
 
 
 oled = SSD1306_I2C(128, 64, i2c)
