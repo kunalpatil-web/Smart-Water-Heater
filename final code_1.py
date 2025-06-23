@@ -10,7 +10,7 @@ import ds18x20
 import ssd1306
 from bmp280 import BMP280
 
-# ========== Wi-Fi Access Point Setup ==========
+# Wi-Fi Access Point Setup 
 ssid = "KUNAL_ESP"
 password = "kunal007"
 
@@ -26,24 +26,25 @@ print("Access Point active. Connect to Wi-Fi:")
 print("SSID:", ssid)
 print("Access at: http://{}/".format(ip))
 
-# ========== Sensor & Display Initialization ==========
+# Sensor & Display Initialization 
 
-# BMP280 on I2C(1)
+# BMP280 
 i2c_bmp = I2C(1, scl=Pin(22), sda=Pin(21), freq=100000)
 bmp = BMP280(i2c_bmp, addr=0x76)
 
-# DS18B20 on GPIO4
+# DS18B20 
+#connect signal wire to GPIO4
 ds_pin = Pin(4)
 ow = onewire.OneWire(ds_pin)
 ds = ds18x20.DS18X20(ow)
 roms = ds.scan()
 print("Found DS18B20 devices:", roms)
 
-# OLED on SoftI2C (GPIO19=SCL, GPIO18=SDA)
+# OLED 
 i2c_oled = SoftI2C(scl=Pin(19), sda=Pin(18))
 oled = ssd1306.SSD1306_I2C(128, 64, i2c_oled)
 
-# ======= Startup OLED Message =======
+# OLED Starting Message
 oled.fill(0)
 oled.text("SMART WATER", 20, 0)
 oled.text("HEATER", 40, 10)
@@ -54,18 +55,18 @@ sleep(3)
 oled.fill(0)
 oled.show()
 
-# Touch sensors
-touch_increase = Pin(33, Pin.IN)
-touch_decrease = Pin(25, Pin.IN)
+# Touch sensors 
+touch_increase = Pin(33, Pin.IN) #For Increase
+touch_decrease = Pin(25, Pin.IN) # for Decrease
 
-# GPIO output for relay
+# Relay
 relay = Pin(13, Pin.OUT)
 
 # Initial parameters
 set_temp = 25
-humidity = 40.0  # placeholder
+humidity = 40.0  
 
-# ========== Sensor Reading Function ==========
+
 def read_bmp280():
     try:
         temperature, pressure = bmp.read_compensated_data()
@@ -74,7 +75,7 @@ def read_bmp280():
         print("BMP280 Error:", e)
         return None, None
 
-# ========== Web Server Handlers ==========
+
 def load_html(filename):
     try:
         with open(filename, 'r') as file:
@@ -128,7 +129,7 @@ def web_server():
         request = conn.recv(1024).decode()
         handle_web_request(conn, request)
 
-# ========== Control Logic ==========
+# Control Logic
 def control_loop():
     global set_temp
     if not roms:
@@ -175,7 +176,7 @@ def control_loop():
             oled.text("Heater: {}".format(relay_status), 0, 48)
             oled.show()
 
-            # Thonny Shell Output
+            # For Thonny Terminal 
             print("\n===== STATUS =====")
             print("Current Temp   : {:.2f} °C".format(temp_ds))
             if pressure is not None:
@@ -188,7 +189,7 @@ def control_loop():
 
             sleep(0.5)
 
-# ========== Main ==========
+
 def main():
     _thread.start_new_thread(web_server, ())
     control_loop()
