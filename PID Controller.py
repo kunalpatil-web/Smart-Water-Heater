@@ -37,7 +37,7 @@ oled = ssd1306.SSD1306_I2C(128, 64, i2c)
 pwm = PWM(Pin(15), freq=1000)
 
 # --- PID Initialization ---
-pid = PID(Kp=25.0, Ki=0.5, Kd=5.0, setpoint=35)  # Target temp: 40°C
+pid = PID(Kp=25.0, Ki=0.5, Kd=5.0, setpoint=35)  
 
 # --- Main Loop ---
 while True:
