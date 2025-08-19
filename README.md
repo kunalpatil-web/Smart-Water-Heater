@@ -1,4 +1,4 @@
-Project Overview:
+🔎Project Overview:
 
 This project is a Smart Water Heater Monitoring and Control System built using an ESP32 microcontroller. It integrates temperature sensors, a pressure sensor, an OLED display, touch sensors, a relay for heater control, and a web interface. The system allows users to monitor and control water heating in real time via Wi-Fi using a mobile/PC web browser. It can also function in Access Point (AP) mode for local control without internet.
 
